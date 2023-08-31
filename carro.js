@@ -1,38 +1,56 @@
-//Posicao carro1
-let xCarro1 = 600;
-let yCarro1 = 40;
+//código do ator
+let xAtor = 85;
+let yAtor = 366;
+let colisao = false;
+let meusPontos = 0;
 
-//Posicao carro2
-let xCarro2 = 600;
-let yCarro2 = 96;
-
-//Posicao carro3
-let xCarro3 = 600;
-let yCarro3 = 148;
-
-//Velocidade base carro
-let vel = 2;
-
-function mostraCarro1(){
-  image(carro1, xCarro1, yCarro1, 50, 40)  
-  image(carro2, xCarro2, yCarro2, 50, 40)
-  image(carro3, xCarro3, yCarro3, 50, 40)
+function mostraAtor(){
+  image(imagemDoAtor, xAtor, yAtor, 30, 30);
 }
 
-function movimentaCarro1(){
-  xCarro1 -= vel;
-  xCarro2 -= vel + 0.5;
-  xCarro3 -= vel + 1.2;
+function movimentaAtor(){
+  if (keyIsDown(UP_ARROW)){
+    yAtor -= 3;
+  }
+  if (keyIsDown(DOWN_ARROW)){
+    yAtor += 3;
+  }
 }
 
-function voltaPosCarro(){
-  if ( xCarro1 < -50){
-    xCarro1 = 600;
-  }
-  if (xCarro2 < -50){
-    xCarro2 = 600;
-  }
-  if (xCarro3 < -50){
-    xCarro3 = 600;
+function verificaColisao(){
+  //collideRectCircle(x1, y1, width1, height1, cx, cy, diameter)
+  for (let i = 0; i < imagemCarros.length; i++){
+    colisao = collideRectCircle(xCarros[i], yCarros[i], comprimentoCarro, alturaCarro, xAtor, yAtor, 15)
+    if (colisao){
+      voltaAtorParaPosicaoInicial();
+    }
   }
 }
+
+function voltaAtorParaPosicaoInicial(){
+  yAtor = 366;
+}
+
+function incluiPontos(){
+  textAlign(CENTER);
+  textSize(25);
+  fill(color(255, 240, 60))
+  text(meusPontos, width / 5, 27);
+}
+
+function marcaPonto(){
+  if (yAtor < 15){
+    meusPontos += 1;
+    voltaAtorParaPosicaoInicial();
+  }
+}
+
+
+
+
+
+
+
+
+
+
